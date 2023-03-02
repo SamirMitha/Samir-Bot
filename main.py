@@ -29,4 +29,4 @@ async def on_ready():
     print('[STARTUP] games_cog loaded')
 
 # Run Bot
-bot.run(os.getenv('BOT_TOKEN'))
+bot.run("MTA3NjkwNDcxODQ2ODY2NTQ0NA.GcMzWO.ekxhl9Dh3-IOFATBb8yQ5ZBkeGRY89udhgNV2U")

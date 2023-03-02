@@ -30,7 +30,7 @@ class yt_music_cog(commands.Cog):
             except Exception: 
                 return False
 
-        return {'source': info['formats'][0]['url'], 'title': info['title'], 'playlist_id': info['playlist_id'], 'channel': info['channel'], 'thumbnail': info['thumbnail'], 'uploader_url': info['uploader_url'], 'duration': info['duration']}
+        return {'source': info['formats'][0]['url'], 'title': info['title'], 'playlist_id': info['webpage_url'], 'channel': info['channel'], 'thumbnail': info['thumbnail'], 'uploader_url': info['uploader_url'], 'duration': info['duration']}
 
 
     def now_playing(self):
@@ -117,11 +117,13 @@ class yt_music_cog(commands.Cog):
     @commands.command(name="play", aliases=["p","playing"], help="Plays a selected song from youtube")
     async def play(self, ctx, *args):
         query = " ".join(args)
-        voice_channel = ctx.author.voice.channel
-        
-        if voice_channel is None:
+        try:
+            voice_channel = ctx.author.voice.channel
+        except:
             await ctx.send("You are not in a voice channel.")
-        elif self.is_paused:
+            return
+
+        if self.is_paused:
             self.vc.resume()
         else:
             song = self.search_yt(query)
